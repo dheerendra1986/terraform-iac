@@ -3,8 +3,10 @@ name: 'Terraform'
 on:
   push:
     branches:
-    - "main"
+    - "dev"
   pull_request:
+    branches:
+       - main
 
 permissions:
   contents: read
@@ -51,11 +53,20 @@ jobs:
       env:
        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
+    - name: test function
+      run: |
+        echo ${{github.event_name}}
+        echo ${{github.ref}}
+        echo ${{ github.event}}
+        echo ${{github.workspace}}
+        echo ${{github.workflow}}
+        echo ${{github.eventpath}}
+
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      if: ${{github.ref == 'refs/heads/"main"' && github.event_name == 'push'}}
       run: |
         cd custom-role/tenants
         terraform apply -auto-approve -input=false
