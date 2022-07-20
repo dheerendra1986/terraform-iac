@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - "dev"
+    - "prod"
   pull_request:
     branches:
        - main
@@ -12,10 +13,10 @@ permissions:
   contents: read
 
 jobs:
-  terraform:
-    name: 'Terraform'
+  Dev_Deployment:
+    name: 'Terraform_dev'
     runs-on: ubuntu-latest
-    environment: production
+    environment: Dev
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -36,7 +37,7 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform init
       run: |
-       cd custom-role/tenants
+       cd custom-role/tenants/dev
        terraform init
       env:
        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
@@ -48,28 +49,19 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: |
-       cd custom-role/tenants
-       terraform plan -input=false
+       cd custom-role/tenants/dev
+       terraform plan -input=false -lock=false
       env:
        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-
-    - name: test function
-      run: |
-        echo ${{github.event_name}}
-        echo ${{github.ref}}
-        echo ${{ github.event}}
-        echo ${{github.workspace}}
-        echo ${{github.workflow}}
-        echo ${{github.eventpath}}
-        echo ${{github.base_ref}}
-
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.base_ref == 'refs/heads/main' && github.event_name == 'pull_request'
+      if: github.base_ref == 'main' && github.event_name == 'pull_request'
       run: |
-        cd custom-role/tenants
+        cd custom-role/tenants/dev
         terraform apply -auto-approve -input=false
       env:
        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
+
+  
