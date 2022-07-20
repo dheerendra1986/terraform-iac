@@ -6,7 +6,7 @@ provider "google" {
   Module custom_role call
  *****************************************/
 module "custom-role-project" {
-  source = "../modules/custom_role_iam/"
+  source = "../../modules/custom_role_iam/"
 
   target_level         = "project"
   target_id            = var.project_id
