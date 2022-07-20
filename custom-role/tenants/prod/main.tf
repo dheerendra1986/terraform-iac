@@ -10,7 +10,7 @@ module "custom-role-project" {
 
   target_level         = "project"
   target_id            = var.project_id
-  role_id              = "iamDeleter"
+  role_id              = "iamrolefordeleter"
   base_roles           = ["roles/iam.serviceAccountAdmin"]
   permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
   excluded_permissions = ["iam.serviceAccounts.setIamPolicy", "resourcemanager.projects.get", "resourcemanager.projects.list"]
@@ -22,11 +22,7 @@ module "custom-role-project" {
   Create service accounts to use as members
  *****************************************/
 resource "google_service_account" "custom_role_account_01" {
-  account_id = "custom-role-account-prod-02"
+  account_id = "custom-role-account-prod"
   project    = var.project_id
 }
 
-resource "google_service_account" "custom_role_account_02" {
-  account_id = "custom-role-account-prod-02"
-  project    = var.project_id
-}
