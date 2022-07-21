@@ -80,6 +80,7 @@ jobs:
       with:
        MY_ENV_VAR_2: $auth_header
     - name: Terraform destroy
+      if: contains(env.MY_ENV_VAR_2 , 'Terraform Destroy')
       run: |
         echo "inside terraform destroy"
       env:
