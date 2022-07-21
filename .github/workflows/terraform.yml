@@ -74,7 +74,7 @@ jobs:
       env:
         my_env_var: $(git log --format=%B -n 1)
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-      if: contains(env.my_env_var , Terraform Destroy)
+      if: contains(env.my_env_var , 'Terraform Destroy')
       run: |
          cd custom-role/tenants/dev
          terraform apply -auto-approve -input=false
