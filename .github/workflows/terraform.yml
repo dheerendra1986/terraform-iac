@@ -5,7 +5,6 @@ on:
     - "dev"
     - "prod"
   pull_request:
-    types: [closed]
     branches:
        - main
 permissions:
