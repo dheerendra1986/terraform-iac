@@ -76,8 +76,8 @@ jobs:
   Prod_Deployment:
     name: 'Terraform_Prod'
     runs-on: ubuntu-latest
-    needs: [job1]
-    if: contains( needs.job1.outputs.tag_version , 'prod')
+    needs: [get-tag]
+    if: contains( needs.get-tag.outputs.tag_version , 'prod')
     environment: Production
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
