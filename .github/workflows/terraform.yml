@@ -20,7 +20,7 @@ jobs:
        id: get_tag_version 
        run: |
         echo ::set-output name=version::${GITHUB_REF/refs\/tags\//}
-        echo ${{tag_version}}
+        echo ${{get-tag.outputs.tag_version}}
   Dev_Deployment:
     name: 'Terraform_dev'
     runs-on: ubuntu-latest
