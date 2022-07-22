@@ -9,7 +9,7 @@ permissions:
 
 env:
  terraform_destroy_flag: 'yes'
- 
+
 
 jobs:
   get-tag:
@@ -81,16 +81,21 @@ jobs:
          auth_header=$(git log --format=%B -n 1 ${{ github.event.after }})
          echo $auth_header
                
+    - name: set environment variables
+      uses: allenevans/set-env@v1.0.0
+      run: |
+         auth_header=$(git log --format=%B -n 1 ${{ github.event.after }})
+         echo $auth_header
+      with:
+        MY_ENV_VAR: ${auth_header}
 
+    - name: Printenv
+      run: |
+       echo "MY_ENV_VAR=${MY_ENV_VAR}"
+       printenv 
    
 
-    - name: Terraform destroy
-      if: contains(env.user_input , 'Terraform Destroy')
-      run: |
-        echo "inside terraform destroy"
-      env:
-       GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-       echo: ${{env.user_input}}
+    
       
 
   Prod_Deployment:
