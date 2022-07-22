@@ -78,11 +78,11 @@ jobs:
     - name: set environment variables
       uses: allenevans/set-env@v2.0.0
       with:
-       MY_ENV_VAR_2: '$auth_header'
+       MY_ENV_VAR_2: $auth_header
 
     - name: auth value 
       run: |
-       echo ${{env.MY_ENV_VAR_2}}
+       echo $(env.MY_ENV_VAR_2)
    
 
     - name: Terraform destroy
