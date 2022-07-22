@@ -82,13 +82,12 @@ jobs:
          echo $auth_header
                
     - name: set environment variables
-      uses: allenevans/set-env@v1.0.0
-      with:
-        MY_ENV_VAR: $(git log --format=%B -n 1 ${{ github.event.after }})
+      run: |
+        echo "MY_ENV_VAR = $(git log --format=%B -n 1 ${{ github.event.after }})" >> $GITHUB_ENV
 
     - name: Printenv
       run: |
-       echo "MY_ENV_VAR=${MY_ENV_VAR}"
+       echo "${{ env.MY_ENV_VAR }}"
        printenv 
    
 
