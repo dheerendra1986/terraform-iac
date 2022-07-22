@@ -83,7 +83,6 @@ jobs:
     - name: auth value 
       run: |
        echo ${{env.user_input}}
-       echo ${{user_input}}
        echo ${{auth_header}}
    
 
