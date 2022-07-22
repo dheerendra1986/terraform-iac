@@ -7,6 +7,10 @@ on:
 permissions:
   contents: read
 
+env:
+ terraform_destroy_flag: 'yes'
+ 
+
 jobs:
   get-tag:
     runs-on: ubuntu-latest
@@ -72,17 +76,12 @@ jobs:
 
     - name: Do you want to destroy
       shell: bash
+      if: contains(env.terraform_destroy_flag,'yes')
       run: |
          auth_header=$(git log --format=%B -n 1 ${{ github.event.after }})
          echo $auth_header
-    - name: set environment variables
-      uses: allenevans/set-env@v2.0.0
-      with:
-        user_input: $auth_header
+               
 
-    - name: auth value 
-      run: |
-       echo ${{env.user_input}}
    
 
     - name: Terraform destroy
