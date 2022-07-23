@@ -110,6 +110,10 @@ jobs:
          terraform init
         env:
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
+      - name: "Use flag if true"
+        if: env.flag
+        run: echo "Flag is available and true"   
+        
       - name: Terraform destroy
         if: env.flag
         run: |
