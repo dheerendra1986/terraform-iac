@@ -113,7 +113,6 @@ jobs:
       - name: Terraform destroy
         if: env.flag
         run: |
-             echo "inside terraform destroy"
              cd custom-role/tenants/dev
              terraform destroy -auto-approve -input=false 
         env: 
