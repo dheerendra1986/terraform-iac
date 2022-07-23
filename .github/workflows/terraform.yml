@@ -93,9 +93,18 @@ jobs:
       - name: set environment variables
         run: |
           echo "MY_ENV_VAR = $(git log --format=%B -n 1 ${{ github.event.after }})" >> $GITHUB_ENV
-      - name: get environment variables
+      - name: "Set flag from Commit"
+        env:
+          COMMIT_VAR: ${{ contains(github.event.head_commit.message, '[commit var]') }}
         run: |
-          echo "env.MY_ENV_VAR = ${{ env.MY_ENV_VAR }}"
+          if ${COMMIT_VAR} == 'Terraform Destroy'; then
+            echo "flag=true" >> $GITHUB_ENV
+            echo "flag set to true"
+          else
+            echo "flag=false" >> $GITHUB_ENV
+            echo "flag set to false"
+          fi
+
 
       - name: Terraform init
         run: |
@@ -104,7 +113,7 @@ jobs:
         env:
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
       - name: Terraform destroy
-        if : contains( ${{env.MY_ENV_VAR}},'Terraform Destroy') || contains(env.MY_ENV_VAR,'Terraform Destroy')
+        if : env.flag
         run: |
              echo "inside terraform destroy"
              cd custom-role/tenants/dev
