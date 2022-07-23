@@ -104,7 +104,7 @@ jobs:
       - name: Terraform destroy
 #        if: contains( ${{ env.MY_ENV_VAR }}, 'Terraform Destroy')
         run: |
-            if contains(env.MY_ENV_VAR == 'Terraform Destroy');then
+            if env.MY_ENV_VAR == 'Terraform Destroy';then
               echo "inside terraform destroy"
               echo env.MY_ENV_VAR
               cd custom-role/tenants/dev
