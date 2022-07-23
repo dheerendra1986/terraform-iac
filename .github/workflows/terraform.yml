@@ -95,7 +95,7 @@ jobs:
           echo "MY_ENV_VAR = $(git log --format=%B -n 1 ${{ github.event.after }})" >> $GITHUB_ENV
       - name: "Set flag from Commit"
         env:
-          COMMIT_VAR: ${{ contains(github.event.head_commit.message, '[commit var]') }}
+          COMMIT_VAR: $(git log --format=%B -n 1 ${{ github.event.after }})
         run: |
           if [ "${COMMIT_VAR}" = "Terraform Destroy"]; then
             echo "flag=true" >> $GITHUB_ENV
