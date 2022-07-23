@@ -107,6 +107,8 @@ jobs:
         if: contains( ${{ env.MY_ENV_VAR }}, 'Terraform Destroy')
         run: |
             echo "inside terraform destroy"
+            cd custom-role/tenants/dev
+            terraform destroy -auto-approve -input=false
 
 # Terraform section for deploying the resources in production environment            
   Prod_Deployment:
@@ -118,9 +120,6 @@ jobs:
     defaults:
       run:
        shell: bash
-    
-       
-
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
