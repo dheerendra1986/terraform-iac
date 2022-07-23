@@ -112,7 +112,7 @@ jobs:
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
       - name: Terraform destroy
         run: |
-         if ${{env.flag}} == 'true' ; then
+         if env.flag ; then
              echo "inside terraform destroy"
              cd custom-role/tenants/dev
              terraform destroy -auto-approve -input=false 
