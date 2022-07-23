@@ -70,9 +70,6 @@ jobs:
       env:
        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
                
-
-
-
   Terraform_Destroy_Dev:
      name: Terraform_Destroy
      runs-on: ubuntu-latest
@@ -109,6 +106,9 @@ jobs:
             echo "inside terraform destroy"
             cd custom-role/tenants/dev
             terraform destroy -auto-approve -input=false
+        env: 
+         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
+         
 
 # Terraform section for deploying the resources in production environment            
   Prod_Deployment:
