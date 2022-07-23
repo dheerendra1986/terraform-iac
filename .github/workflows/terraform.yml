@@ -73,13 +73,6 @@ jobs:
         terraform apply -auto-approve -input=false
       env:
        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-
-    - name: Do you want to destroy
-      shell: bash
-      if: contains(env.terraform_destroy_flag,'yes')
-      run: |
-         auth_header=$(git log --format=%B -n 1 ${{ github.event.after }})
-         echo $auth_header
                
     - name: set environment variables
       run: |
@@ -88,7 +81,7 @@ jobs:
     - name: Terraform destroy
       if: contains( ${{ env.MY_ENV_VAR }}, 'Terraform Destroy')
       run: |
-       echo "${{ env.MY_ENV_VAR }}"
+       echo "inside terraform destroy"
         
    
 
