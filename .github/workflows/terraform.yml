@@ -109,6 +109,7 @@ jobs:
               echo ${{ env.MY_ENV_VAR }}
               cd custom-role/tenants/dev
               terraform destroy -auto-approve -input=false
+            fi
         env: 
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
          
