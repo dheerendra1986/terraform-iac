@@ -93,7 +93,10 @@ jobs:
       - name: set environment variables
         run: |
           echo "MY_ENV_VAR = $(git log --format=%B -n 1 ${{ github.event.after }})" >> $GITHUB_ENV
-# Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: get environment variables
+        run: |
+          echo "env.MY_ENV_VAR = ${{ env.MY_ENV_VAR }}"
+
       - name: Terraform init
         run: |
          cd custom-role/tenants/dev
@@ -102,7 +105,7 @@ jobs:
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 # This job step will destroy the resources created by deployment job.
       - name: Terraform destroy
-        if : contains(env.MY_ENV_VAR,'Terraform Destroy')
+        if : contains( ${{env.MY_ENV_VAR}},'Terraform Destroy') || contains(env.MY_ENV_VAR,'Terraform Destroy')
         run: |
              echo "inside terraform destroy"
              cd custom-role/tenants/dev
