@@ -104,8 +104,6 @@ jobs:
             echo "flag=false" >> $GITHUB_ENV
             echo "flag set to false"
           fi
-
-
       - name: Terraform init
         run: |
          cd custom-role/tenants/dev
