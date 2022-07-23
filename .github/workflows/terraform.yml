@@ -98,7 +98,7 @@ jobs:
 
       - name: "set environment variables"
         env:
-          COMMIT_VAR: ${{ contains(github.event.head_commit.message, '[commit var]') }}
+          COMMIT_VAR: ${{ contains(github.event.head_commit.message, '[Terraform Destroy]') }}
         run: |
           if ${COMMIT_VAR} = true; then
             echo "flag=true" >> $GITHUB_ENV
