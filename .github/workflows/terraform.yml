@@ -40,7 +40,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       env:
-       GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
+       GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}    
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform init
@@ -69,18 +69,64 @@ jobs:
         terraform apply -auto-approve -input=false
       env:
        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
+               
+  Terraform_Destroy_Dev:
+     name: Terraform_Destroy
+     runs-on: ubuntu-latest
+     needs: [get-tag,Dev_Deployment]
+     if: contains( needs.get-tag.outputs.tag_version , 'dev')  
+     environment: Dev
+     defaults:
+       run:
+        shell: bash
+     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        env:
+         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}    
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        env:
+         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}} 
+      - name: Terraform init
+        run: |
+         cd custom-role/tenants/dev
+         terraform init
+        env:
+         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}    
+
+      - name: "set environment variables"
+        env:
+          COMMIT_VAR: ${{ contains(github.event.head_commit.message, '[commit var]') }}
+        run: |
+          if ${COMMIT_VAR} = true; then
+            echo "flag=true" >> $GITHUB_ENV
+            echo "flag set to true"
+          else
+            echo "flag=false" >> $GITHUB_ENV
+            echo "flag set to false"
+          fi
+      - name: Terraform destroy
+        run: |
+          if [[ ${{env.flag}} == true ]]; then
+             cd custom-role/tenants/dev
+             terraform destroy -auto-approve -input=false 
+          fi
+        env: 
+         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
+         
+
+# Terraform section for deploying the resources in production environment            
   Prod_Deployment:
     name: 'Terraform_Prod'
     runs-on: ubuntu-latest
     needs: [get-tag]
     if: contains( needs.get-tag.outputs.tag_version , 'prod')
     environment: Production
-
     defaults:
       run:
-        shell: bash
-
+       shell: bash
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
