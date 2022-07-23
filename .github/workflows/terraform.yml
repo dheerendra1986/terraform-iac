@@ -105,6 +105,7 @@ jobs:
         if: contains( ${{ env.MY_ENV_VAR }}, 'Terraform Destroy')
         run: |
             echo "inside terraform destroy"
+            echo ${{ env.MY_ENV_VAR }}
             cd custom-role/tenants/dev
             terraform destroy -auto-approve -input=false
         env: 
