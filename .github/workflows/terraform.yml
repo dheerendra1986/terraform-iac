@@ -111,7 +111,7 @@ jobs:
       - name: Terraform destroy
         run: |
           var_flag = ${{env.flag}}
-          if [[ '$var_flag' = 'true' ]]; then
+          if [[ 'var_flag' = 'true' ]]; then
              cd custom-role/tenants/dev
              terraform destroy -auto-approve -input=false 
           fi
