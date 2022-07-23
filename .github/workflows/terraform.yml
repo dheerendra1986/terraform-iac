@@ -102,12 +102,13 @@ jobs:
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 # This job step will destroy the resources created by deployment job.
       - name: Terraform destroy
-        if: contains( ${{ env.MY_ENV_VAR }}, 'Terraform Destroy')
+#        if: contains( ${{ env.MY_ENV_VAR }}, 'Terraform Destroy')
         run: |
-            echo "inside terraform destroy"
-            echo ${{ env.MY_ENV_VAR }}
-            cd custom-role/tenants/dev
-            terraform destroy -auto-approve -input=false
+            if ${{ ${{ env.MY_ENV_VAR }} == 'Terraform Destroy' }} == 'true';then
+              echo "inside terraform destroy"
+              echo ${{ env.MY_ENV_VAR }}
+              cd custom-role/tenants/dev
+              terraform destroy -auto-approve -input=false
         env: 
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
          
