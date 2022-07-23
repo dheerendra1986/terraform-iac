@@ -109,8 +109,8 @@ jobs:
           fi
  
       - name: Terraform destroy
-        run: 
-          if [[ env.flag = true ]]; then
+        run: |
+          if [[env.flag = true]]; then
              cd custom-role/tenants/dev
              terraform destroy -auto-approve -input=false 
           fi
