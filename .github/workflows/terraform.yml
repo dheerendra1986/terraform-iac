@@ -95,7 +95,7 @@ jobs:
          terraform init
         env:
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}    
-          
+
       - name: "set environment variables"
         env:
           COMMIT_VAR: ${{ contains(github.event.head_commit.message, '[commit var]') }}
@@ -109,8 +109,8 @@ jobs:
           fi
  
       - name: Terraform destroy
-        if: env.flag
         run: |
+          if [[ env.flag ]];then
              cd custom-role/tenants/dev
              terraform destroy -auto-approve -input=false 
         env: 
