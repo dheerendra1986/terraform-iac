@@ -170,7 +170,7 @@ jobs:
   Terraform_Destroy_Prod:
      name: Terraform_Destroy_prod
      runs-on: ubuntu-latest
-     needs: [get-tag,Prod_Deployment]
+     needs: [Prod_Deployment]
      if: contains( needs.get-tag.outputs.tag_version , 'prod')  
      environment: Production
      defaults:
