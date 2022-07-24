@@ -69,7 +69,7 @@ jobs:
         terraform apply -input=false tfplan
       env:
        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-               
+# Code for destroying the resources from dev environment               
   Terraform_Destroy_Dev:
      name: Terraform_Destroy
      runs-on: ubuntu-latest
