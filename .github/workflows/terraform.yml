@@ -165,7 +165,7 @@ jobs:
       env: 
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
         
-#Section for destroying the resources created in prod environment.        
+# Terraform Section for destroying the resources created in prod environment.        
   Terraform_Destroy_Prod:
      name: Terraform_Destroy_prod
      runs-on: ubuntu-latest
