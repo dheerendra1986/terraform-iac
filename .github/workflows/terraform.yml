@@ -152,7 +152,7 @@ jobs:
     - name: Terraform Plan
       run: |
         cd custom-role/tenants/prod
-        terraform plan -input=false -lock=false
+        terraform plan -input=false
       env: 
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
