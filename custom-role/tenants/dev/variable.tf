@@ -7,12 +7,12 @@ variable "project_id" {
 variable "service_account_name_01"{
   type = string
   description = "Name of the service account"
-  default = "custom_role_account_dev-test01"
+  default = "custom_role_account_dev_test01"
 
 }
 
 variable "service_account_name_02"{
   type = string
   description = "Name of the service account"
-  default = "custom_role_account_dev-test02"
+  default = "custom_role_account_dev_test02"
 }
