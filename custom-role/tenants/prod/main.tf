@@ -21,7 +21,7 @@ module "custom-role-project" {
 /******************************************
   Create service accounts to use as members
  *****************************************/
-resource "google_service_account" "custom_role_account_01" {
+resource "google_service_account" "custom_role_account_prod" {
   account_id = "custom-role-account-prod"
   project    = var.project_id
 }
