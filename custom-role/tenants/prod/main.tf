@@ -29,4 +29,7 @@ resource "google_service_account" "custom_role_account_01" {
   account_id = "custom-role-account-01"
   project    = var.project_id
 }
-
+resource "google_service_account" "custom_role_account_02" {
+  account_id = "custom-role-account-02"
+  project    = var.project_id
+}
