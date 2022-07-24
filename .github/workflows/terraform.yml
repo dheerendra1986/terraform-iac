@@ -73,7 +73,7 @@ jobs:
   Terraform_Destroy_Dev:
      name: Terraform_Destroy
      runs-on: ubuntu-latest
-     needs: [get-tag,Dev_Deployment]
+     needs: [get-tag]
      if: contains( needs.get-tag.outputs.tag_version , 'dev')  
      environment: Dev
      defaults:
