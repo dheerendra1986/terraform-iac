@@ -15,18 +15,18 @@ module "custom-role-project" {
   permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
   excluded_permissions = ["iam.serviceAccounts.setIamPolicy", "resourcemanager.projects.get", "resourcemanager.projects.list"]
   description          = "This is a project level custom role."
-  members              = ["serviceAccount:custom-role-account-01@${var.project_id}.iam.gserviceaccount.com", "serviceAccount:custom-role-account-02@${var.project_id}.iam.gserviceaccount.com"]
+  members              = ["serviceAccount:${var.service_account_name_01}@${var.project_id}.iam.gserviceaccount.com", "serviceAccount:${var.service_account_name_02}@${var.project_id}.iam.gserviceaccount.com"]
 }
 
 /******************************************
   Create service accounts to use as members
  *****************************************/
 resource "google_service_account" "custom_role_account_dev-test01" {
-  account_id = "custom-role-account-dev-test01"
+  account_id = var.service_account_name_01
   project    = var.project_id
 }
 
 resource "google_service_account" "custom_role_account_dev-test02" {
-  account_id = "custom-role-account-dev-test02"
+  account_id = var.service_account_name_02
   project    = var.project_id
 }
