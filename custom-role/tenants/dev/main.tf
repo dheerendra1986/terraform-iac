@@ -26,7 +26,7 @@ resource "google_service_account" "custom_role_account_dev-test01" {
   project    = var.project_id
 }
 
-resource "google_service_account" "custom_role_account_dev-test01" {
-  account_id = "custom-role-account-dev-test01"
+resource "google_service_account" "custom_role_account_dev-test02" {
+  account_id = "custom-role-account-dev-test02"
   project    = var.project_id
 }
