@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "ingka-icf-extcustdata-test-tfstate"
-    prefix = "env/test"
+    bucket = "ingka-icf-extcustdata-dev-tfstate"
+    prefix = "env/dev"
   }
 }
