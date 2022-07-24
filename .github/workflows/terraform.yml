@@ -116,7 +116,6 @@ jobs:
         env: 
          GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
          
-
 # Terraform section for deploying the resources in production environment            
   Prod_Deployment:
     name: 'Terraform_Prod'
