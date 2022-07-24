@@ -10,7 +10,7 @@ module "custom-role-project" {
 
   target_level         = "project"
   target_id            = var.project_id
-  role_id              = "iamDeleter"
+  role_id              = "iamDeleter-Dev"
   base_roles           = ["roles/iam.serviceAccountAdmin"]
   permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
   excluded_permissions = ["iam.serviceAccounts.setIamPolicy", "resourcemanager.projects.get", "resourcemanager.projects.list"]
