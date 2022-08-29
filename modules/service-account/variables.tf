@@ -13,3 +13,5 @@ variable "service_account" {
   description = "Service account used for accessing resources"
   default     = ""
 }
+
+variable "project_id" {} 

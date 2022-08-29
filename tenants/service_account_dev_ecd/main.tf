@@ -7,8 +7,9 @@ terraform {
 
 
 module "batch-reprocess-readbq" {
-  source = "../../modules/service-account"
-  name   = "batch-reprocess-readbq"
+  source     = "../../modules/service-account"
+  project_id = var.project_name
+  name       = "batch-reprocess-readbq"
   roles = [
     "roles/bigquery.admin",
     "roles/bigquery.dataOwner",
@@ -17,8 +18,9 @@ module "batch-reprocess-readbq" {
 }
 
 module "consume-signup-checkout-events" {
-  source = "../../modules/service-account"
-  name   = "consume-signup-checkout-events"
+  source     = "../../modules/service-account"
+  project_id = var.project_name
+  name       = "consume-signup-checkout-events"
   roles = [
     "roles/bigquery.dataEditor",
     "roles/logging.logWriter",
