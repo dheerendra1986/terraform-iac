@@ -7,11 +7,13 @@ variable "project_id" {
 variable "dataset_id" {
   type        = string
   description = "Variable for dataset in project."
-  default     = "ingka-icf-extcustdata-test"
 }
 
-variable "table_id" {
+variable "bigquery_table_id" {
   type        = list(any)
   description = "Variable for dataset in project."
-  default     = "ingka-icf-extcustdata-test"
 }
+
+variable "user_email_address" {}
+variable "account_type" {}
+variable "user_role" {}
