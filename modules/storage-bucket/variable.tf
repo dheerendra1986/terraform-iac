@@ -5,12 +5,10 @@ variable "project" {
 
 variable "project_id" {
   description = "The ID of the google project to which the resource belongs. If it is not provided, the project configured in the gcloud client is used."
-  default     = "ingka-icf-extcustdata-dev"
 }
 
 variable "location" {
   description = "The GCS location. If it is not provided, the region configured in the gcloud client is used."
-  default     = "europe-west1"
 }
 variable "folders" {
   description = "The list of folders to be created in the bucket"
@@ -19,7 +17,6 @@ variable "folders" {
 }
 variable "name" {
   description = "The name of the bucket"
-  default     = "ecd-dev-storage-tfstate"
 }
 
 variable "pubsub_topic_notify" {
