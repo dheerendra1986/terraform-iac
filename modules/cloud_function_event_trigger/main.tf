@@ -1,14 +1,19 @@
 #zip up our source code
 data "archive_file" "function_app_zip" {
-  type        = "zip"
-  source_dir  = "${path.root}/${var.function_app_foldername}"
-  output_path = "${path.root}/${var.functiom_app_foldername}.zip"
+  type = "zip"
+  #source_dir  = "${path.root}/${var.function_app_foldername}"
+  #output_path = "${path.root}/${var.functiom_app_foldername}.zip"
+  source_dir  = "hello_world"
+  output_path = "/tmp/function.zip"
+
 }
 
 #create the storage bucket
 
 resource "google_storage_bucket" "function_app_bucket" {
   name                        = var.function_app_bucket_name
+  project                     = var.project_name
+  location                    = var.bucket_location
   uniform_bucket_level_access = true
   labels = {
     environment = "${var.label_environment}"
@@ -26,12 +31,16 @@ resource "google_storage_bucket" "function_app_bucket" {
 #place the zip ed code in the bucket
 
 resource "google_storage_bucket_object" "function_app_zip" {
-  name   = "${var.function_app_foldername}.zip"
+  #name   = "${var.function_app_foldername}.zip"
+  name   = "src-${data.archive_file.function_app_zip.output_md5}.zip"
   bucket = google_storage_bucket.function_app_bucket.name
-  source = "${path.root}/${var.function_app_foldername}.zip"
+  #source = "${path.root}/${var.functiom_app_foldername}.zip"
+  source = data.archive_file.function_app_zip.output_path
+
 }
 
 resource "google_cloudfunctions_function" "functions" {
+  project               = var.project_name
   region                = var.function_app_region
   name                  = var.function_name
   description           = var.function_description
@@ -64,6 +73,7 @@ resource "google_cloudfunctions_function" "functions" {
 }
 
 resource "google_cloudfunctions_function_iam_member" "invoker" {
+  project        = var.project_name
   region         = var.function_app_region
   cloud_function = google_cloudfunctions_function.functions.name
   role           = "roles/cloudfunctions.invoker"

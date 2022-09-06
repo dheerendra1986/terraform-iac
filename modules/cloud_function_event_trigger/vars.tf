@@ -49,3 +49,10 @@ variable "failure_retry_policy" {
 variable "environemnt_variables" {
 
 }
+variable "project_name" {
+
+}
+
+variable "bucket_location" {
+  
+}
